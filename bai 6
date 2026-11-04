@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct SanPham {
+    string maSP;
+    string tenSP;
+    int soLuong;
+    double donGia;
+};
+
+int main() {
+    SanPham ds[100];
+    int n = 0;
+    int chon;
+
+    do {
+        cin >> chon;
+        switch (chon) {
+            case 1: {
+                cin >> n;
+                for (int i = 0; i < n; i++) {
+                    cin >> ds[i].maSP;
+                    cin.ignore();
+                    getline(cin, ds[i].tenSP);
+                    cin >> ds[i].soLuong >> ds[i].donGia;
+                }
+                break;
+            }
+            case 2: {
+                for (int i = 0; i < n; i++) {
+                    double tongGiaTri = ds[i].soLuong * ds[i].donGia;
+                    cout << ds[i].maSP << " " << ds[i].tenSP << " " << ds[i].soLuong << " " << ds[i].donGia << " " << tongGiaTri << endl;
+                }
+                break;
+            }
+            case 3: {
+                if (n == 0) break;
+                int maxIdx = 0;
+                for (int i = 1; i < n; i++) {
+                    if (ds[i].donGia > ds[maxIdx].donGia) {
+                        maxIdx = i;
+                    }
+                }
+                cout << ds[maxIdx].maSP << " " << ds[maxIdx].tenSP << " " << ds[maxIdx].soLuong << " " << ds[maxIdx].donGia << endl;
+                break;
+            }
+            case 4: {
+                string ma;
+                cin >> ma;
+                for (int i = 0; i < n; i++) {
+                    if (ds[i].maSP == ma) {
+                        cin >> ds[i].soLuong;
+                    }
+                }
+                break;
+            }
+            case 5: {
+                for (int i = 0; i < n; i++) {
+                    if (ds[i].soLuong < 10) {
+                        cout << ds[i].maSP << " " << ds[i].tenSP << " " << ds[i].soLuong << " " << ds[i].donGia << endl;
+                    }
+                }
+                break;
+            }
+            case 0:
+                break;
+        }
+    } while (chon != 0);
+
+    return 0;
+}
+```[cite: 7]
