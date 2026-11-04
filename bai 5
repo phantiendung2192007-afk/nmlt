@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+struct SinhVien {
+    string maSV;
+    string hoTen;
+    double diemToan;
+    double diemLTV;
+    double diemTB;
+    string hocLuc;
+};
+
+void nhap(SinhVien ds[], int n) {
+    for (int i = 0; i < n; i++) {
+        cin >> ds[i].maSV;
+        cin.ignore();
+        getline(cin, ds[i].hoTen);
+        cin >> ds[i].diemToan >> ds[i].diemLTV;
+        ds[i].diemTB = (ds[i].diemToan + ds[i].diemLTV) / 2.0;
+        if (ds[i].diemTB >= 9.0) {
+            ds[i].hocLuc = "Xuat sac";
+        } else if (ds[i].diemTB >= 8.0) {
+            ds[i].hocLuc = "Gioi";
+        } else if (ds[i].diemTB >= 6.5) {
+            ds[i].hocLuc = "Kha";
+        } else if (ds[i].diemTB >= 5.0) {
+            ds[i].hocLuc = "Trung binh";
+        } else {
+            ds[i].hocLuc = "Yeu";
+        }
+    }
+}
+
+void xuat(SinhVien ds[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << ds[i].maSV << " " << ds[i].hoTen << " " << ds[i].diemToan << " " << ds[i].diemLTV << " " << ds[i].diemTB << " " << ds[i].hocLuc << endl;
+    }
+}
+
+void sapXep(SinhVien ds[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (ds[i].diemTB < ds[j].diemTB) {
+                SinhVien temp = ds[i];
+                ds[i] = ds[j];
+                ds[j] = temp;
+            }
+        }
+    }
+}
+
+void timKiem(SinhVien ds[], int n, string ma) {
+    bool found = false;
+    for (int i = 0; i < n; i++) {
+        if (ds[i].maSV == ma) {
+            cout << ds[i].maSV << " " << ds[i].hoTen << " " << ds[i].diemToan << " " << ds[i].diemLTV << " " << ds[i].diemTB << " " << ds[i].hocLuc << endl;
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        cout << "Khong tim thay" << endl;
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    SinhVien ds[100];
+    nhap(ds, n);
+    xuat(ds, n);
+    sapXep(ds, n);
+    xuat(ds, n);
+    string ma;
+    cin >> ma;
+    timKiem(ds, n, ma);
+    return 0;
+}
+```[cite: 6]
