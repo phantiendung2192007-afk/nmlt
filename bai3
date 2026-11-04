@@ -1,0 +1,67 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int R, C;
+    cin >> R >> C;
+    int A[50][50];
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            cin >> A[i][j];
+        }
+    }
+
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            cout << A[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    for (int i = 0; i < R; i++) {
+        int tongHang = 0;
+        for (int j = 0; j < C; j++) {
+            tongHang += A[i][j];
+        }
+        cout << tongHang << " ";
+    }
+    cout << endl;
+
+    for (int j = 0; j < C; j++) {
+        int tongCot = 0;
+        for (int i = 0; i < R; i++) {
+            tongCot += A[i][j];
+        }
+        cout << tongCot << " ";
+    }
+    cout << endl;
+
+    if (R == C) {
+        int tongChinh = 0, tongPhu = 0;
+        for (int i = 0; i < R; i++) {
+            tongChinh += A[i][i];
+            tongPhu += A[i][R - 1 - i];
+        }
+        cout << tongChinh << endl;
+        cout << tongPhu << endl;
+
+        bool doiXung = true;
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (A[i][j] != A[j][i]) {
+                    doiXung = false;
+                    break;
+                }
+            }
+            if (!doiXung) break;
+        }
+        if (doiXung) {
+            cout << "Yes" << endl;
+        } else {
+            cout << "No" << endl;
+        }
+    }
+
+    return 0;
+}
