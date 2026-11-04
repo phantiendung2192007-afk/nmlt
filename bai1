@@ -1,0 +1,81 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+// Hàm kiểm tra số nguyên tố
+bool laSoNguyenTo(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    int N;
+    // 1. Nhập vào một mảng số nguyên A gồm N phần tử (1 <= N <= 100)
+    do {
+        cout << "Nhập số lượng phần tử N (1 <= N <= 100): ";
+        cin >> N;
+    } while (N < 1 || N > 100);
+
+    int A[100];
+    cout << "Nhập các phần tử của mảng:\n";
+    for (int i = 0; i < N; i++) {
+        cout << "A[" << i << "] = ";
+        cin >> A[i];
+    }
+
+    // 2. In ra danh sách các phần tử đã nhập trong mảng
+    cout << "\nDanh sách các phần tử trong mảng là: ";
+    for (int i = 0; i < N; i++) {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+
+    // 3. Tìm giá trị lớn nhất (Max) và nhỏ nhất (Min) cùng chỉ số xuất hiện đầu tiên
+    int maxVal = A[0], minVal = A[0];
+    int maxIdx = 0, minIdx = 0;
+
+    for (int i = 1; i < N; i++) {
+        if (A[i] > maxVal) {
+            maxVal = A[i];
+            maxIdx = i;
+        }
+        if (A[i] < minVal) {
+            minVal = A[i];
+            minIdx = i;
+        }
+    }
+    cout << "Giá trị lớn nhất (Max) = " << maxVal << " tại chỉ số index = " << maxIdx << endl;
+    cout << "Giá trị nhỏ nhất (Min) = " << minVal << " tại chỉ số index = " << minIdx << endl;
+
+    // 4. Tính trung bình cộng các số nguyên dương có trong mảng
+    int tongDuong = 0, demDuong = 0;
+    for (int i = 0; i < N; i++) {
+        if (A[i] > 0) {
+            tongDuong += A[i];
+            demDuong++;
+        }
+    }
+    if (demDuong > 0) {
+        double trungBinh = (double)tongDuong / demDuong;
+        cout << "Trung bình cộng các số nguyên dương = " << trungBinh << endl;
+    } else {
+        cout << "Không có số nguyên dương nào trong mảng." << endl;
+    }
+
+    // 5. Đếm và liệt kê tất cả các số nguyên tố xuất hiện trong mảng
+    int demSNT = 0;
+    cout << "Các số nguyên tố có trong mảng: ";
+    for (int i = 0; i < N; i++) {
+        if (laSoNguyenTo(A[i])) {
+            cout << A[i] << " ";
+            demSNT++;
+        }
+    }
+    cout << "\nTổng số lượng số nguyên tố = " << demSNT << endl;
+
+    return 0;
+}
