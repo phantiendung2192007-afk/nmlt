@@ -1,0 +1,77 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int N;
+    cin >> N;
+    int A[100];
+    for (int i = 0; i < N; i++) {
+        cin >> A[i];
+    }
+
+    for (int i = 0; i < N - 1; i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < N; j++) {
+            if (A[j] < A[minIdx]) {
+                minIdx = j;
+            }
+        }
+        if (minIdx != i) {
+            int temp = A[i];
+            A[i] = A[minIdx];
+            A[minIdx] = temp;
+        }
+    }
+
+    for (int i = 0; i < N; i++) {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+
+    int X;
+    cin >> X;
+    int pos = N - 1;
+    while (pos >= 0 && A[pos] > X) {
+        A[pos + 1] = A[pos];
+        pos--;
+    }
+    A[pos + 1] = X;
+    N++;
+
+    for (int i = 0; i < N; i++) {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+
+    int k;
+    cin >> k;
+    for (int i = k; i < N - 1; i++) {
+        A[i] = A[i + 1];
+    }
+    N--;
+
+    for (int i = 0; i < N; i++) {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+
+    int Y;
+    cin >> Y;
+    int left = 0, right = N - 1, result = -1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (A[mid] == Y) {
+            result = mid;
+            break;
+        }
+        if (A[mid] < Y) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    cout << result << endl;
+
+    return 0;
+}
