@@ -1,0 +1,99 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct PhanSo {
+    int tuSo;
+    int mauSo;
+};
+
+int gcd(int a, int b) {
+    a = abs(a);
+    b = abs(b);
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+void rutGon(PhanSo &p) {
+    int u = gcd(p.tuSo, p.mauSo);
+    p.tuSo /= u;
+    p.mauSo /= u;
+    if (p.mauSo < 0) {
+        p.tuSo = -p.tuSo;
+        p.mauSo = -p.mauSo;
+    }
+}
+
+void nhapPhanSo(PhanSo &p) {
+    cin >> p.tuSo >> p.mauSo;
+    while (p.mauSo == 0) {
+        cin >> p.tuSo >> p.mauSo;
+    }
+}
+
+void xuatPhanSo(PhanSo p) {
+    if (p.mauSo == 1 || p.tuSo == 0) {
+        cout << p.tuSo << endl;
+    } else {
+        cout << p.tuSo << "/" << p.mauSo << endl;
+    }
+}
+
+PhanSo congPhanSo(PhanSo a, PhanSo b) {
+    PhanSo kq;
+    kq.tuSo = a.tuSo * b.mauSo + b.tuSo * a.mauSo;
+    kq.mauSo = a.mauSo * b.mauSo;
+    rutGon(kq);
+    return kq;
+}
+
+PhanSo truPhanSo(PhanSo a, PhanSo b) {
+    PhanSo kq;
+    kq.tuSo = a.tuSo * b.mauSo - b.tuSo * a.mauSo;
+    kq.mauSo = a.mauSo * b.mauSo;
+    rutGon(kq);
+    return kq;
+}
+
+PhanSo nhanPhanSo(PhanSo a, PhanSo b) {
+    PhanSo kq;
+    kq.tuSo = a.tuSo * b.tuSo;
+    kq.mauSo = a.mauSo * b.mauSo;
+    rutGon(kq);
+    return kq;
+}
+
+PhanSo chiaPhanSo(PhanSo a, PhanSo b) {
+    PhanSo kq;
+    kq.tuSo = a.tuSo * b.mauSo;
+    kq.mauSo = a.mauSo * b.tuSo;
+    rutGon(kq);
+    return kq;
+}
+
+int soSanh(PhanSo a, PhanSo b) {
+    long long val1 = (long long)a.tuSo * b.mauSo;
+    long long val2 = (long long)b.tuSo * a.mauSo;
+    if (val1 > val2) return 1;
+    if (val1 < val2) return -1;
+    return 0;
+}
+
+int main() {
+    PhanSo a, b;
+    nhapPhanSo(a);
+    nhapPhanSo(b);
+
+    xuatPhanSo(congPhanSo(a, b));
+    xuatPhanSo(truPhanSo(a, b));
+    xuatPhanSo(nhanPhanSo(a, b));
+    xuatPhanSo(chiaPhanSo(a, b));
+    cout << soSanh(a, b) << endl;
+
+    return 0;
+}
